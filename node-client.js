@@ -1,22 +1,26 @@
 var net = require('net');
 
 var client = new net.Socket();
-var i=0
+// for increment test
+var i=0;
+// for Ready flag
+var f=0; 
 
 function connect_(){
+	// Server IP and Port configuration
 	client.connect(5000, '192.168.10.250', function() {
 		console.log('Connected');
-		ready_();
+		f=1;
 	});
 }
 
-function ready_(){
-	client.on('ready'm function(){
+// Send data every second
+setInterval(function send_(){
+	if(f==1){
 		i++;
 		client.write(i.toString());
-		setInterval(ready_, 1*1000);
-	});
-}
+	}
+}, 1000);
 
 connect_();
 
@@ -30,5 +34,6 @@ client.on('data', function(data) {
 
 client.on('close', function() {
 	console.log('Connection closed');
+	f=0;
 	connect_();
 });
