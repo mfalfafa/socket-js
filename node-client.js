@@ -1,10 +1,15 @@
 var net = require('net');
 
 var client = new net.Socket();
-client.connect(5000, '192.168.10.250', function() {
-	console.log('Connected');
-	client.write('Hello, server! Love, Client.');
-});
+
+function connect_(){
+	client.connect(5000, '192.168.10.250', function() {
+		console.log('Connected');
+		client.write('Hello, server! Love, Client.');
+	});
+}
+
+connect_();
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);
@@ -16,5 +21,5 @@ client.on('data', function(data) {
 
 client.on('close', function() {
 	console.log('Connection closed');
-	client.connect();
+	connect_();
 });
