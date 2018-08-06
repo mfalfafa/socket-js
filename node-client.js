@@ -6,6 +6,7 @@ var i=0
 function connect_(){
 	client.connect(5000, '192.168.10.250', function() {
 		console.log('Connected');
+		ready_();
 	});
 }
 
