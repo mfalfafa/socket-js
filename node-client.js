@@ -8,9 +8,13 @@ client.connect(5000, '192.168.10.250', function() {
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);
-	client.destroy(); // kill client after server's response
+	if(data=='ack'){
+		client.write('ok')
+		client.destroy(); // kill client after server's response
+	}
 });
 
 client.on('close', function() {
 	console.log('Connection closed');
+	client.connect();
 });
